@@ -1,0 +1,74 @@
+﻿@model Assignment2.Models.BillPay
+@{
+    ViewData["Title"] = "ShowModifyBillPay";
+}
+
+<h1>ShowModifyBillPay</h1>
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="UpdatebillPay">
+            <input type="hidden" asp-for="BillPayID" />
+            <div class="form-group">
+                <label for="from_account" class="control-label">From Account</label>
+                <input type="text" asp-for="AccountNumber" />
+            </div>
+
+            <div class="form-group">
+                <label for="Amount" class="control-label">Amount</label>
+                <input id="Amount" name="Amount" asp-for="Amount" class="form-control"
+                       data-val="true" data-val-number="The field Amount must be a number."
+                       data-val-required="The Amount field is required." />
+                @Html.ValidationMessage("Amount", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label for="schedule_date" class="control-label">Schedule date</label>
+                <input id="schedule_date" name="schedule_date" class="form-control" asp-for="ScheduleDate"
+                       data-val="true"
+                       data-val-required="The Amount field is required." />
+                @Html.ValidationMessage("schedule_date", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label for="period" class="control-label">Period(i.e, 30 days)</label>
+                <input id="period" name="period" class="form-control" asp-for="Period"
+                       data-val="true"
+                       data-val-required="The period field is required." />
+                @Html.ValidationMessage("period", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label for="period" class="control-label">Blocked</label>
+                <!--<input type="checkbox" checked="@(1 == 0)"> -->
+                <input asp-for="IsBlocked">
+            </div>
+
+            
+
+            <div class="form-group">
+                <input type="submit" value="Update" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div>
+    <a asp-action="Index">Back to Accounts</a>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+
+    <script>
+        $( document ).ready(function() {
+            $("#schedule_date").datepicker({ dateFormat: 'yy-mm-dd' });
+
+            var tmpValue = $("#schedule_date").val();
+
+            $("#schedule_date").val(tmpValue.substring(0, 10));
+        });
+    </script>
+}

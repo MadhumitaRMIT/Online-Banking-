@@ -1,0 +1,45 @@
+﻿@model Customer
+@{
+    ViewData["Title"] = "Transfer";
+}
+
+<div>
+    <h1 class="display-4">Tranfer By, @Model.Name</h1>
+
+    <table class="table">
+        <tr>
+            <td>
+                <label for="Amount" class="control-label">From Account</label>
+                <select>
+                    @foreach (var account in Model.Accounts)
+                    {
+                        <option value="@account.AccountNumber" customAttribute="@account.AccountNumber">
+                            @account.AccountNumber
+                        </option>
+                    }
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label for="Amount" class="control-label">To Account</label>
+                <label for="Amount" class="control-label">Amount</label>
+                <input id="to_account" name="to_account" class="form-control" value="@ViewBag.to_account?.ToString("0.00")"
+                       data-val="true" data-val-number="The field account must be a number."
+                       data-val-required="The account field is required." />
+                @Html.ValidationMessage("to_account", new { @class = "text-danger" })
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label for="Amount" class="control-label">Amount</label>
+                <input id="Amount" name="Amount" class="form-control" value="@ViewBag.Amount?.ToString("0.00")"
+                       data-val="true" data-val-number="The field Amount must be a number."
+                       data-val-required="The Amount field is required." />
+                @Html.ValidationMessage("Amount", new { @class = "text-danger" })
+            </td>
+        </tr>
+    </table>
+</div>

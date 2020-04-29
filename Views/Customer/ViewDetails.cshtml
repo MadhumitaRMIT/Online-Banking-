@@ -1,0 +1,36 @@
+﻿@model Customer
+@{
+    ViewData["Title"] = "Customer";
+}
+
+<div>
+    <h1 class="display-4">Welcome, @Model.Name</h1>
+
+    <h3>Your Details</h3>
+    <table class="table">
+        <tr>
+            <th>@Html.DisplayNameFor(x => x.Name)</th>
+            <th>@Html.DisplayNameFor(x => x.CustomerID)</th>
+            <th>@Html.DisplayNameFor(x => x.PostCode)</th>
+            <th>@Html.DisplayNameFor(x => x.State)</th>
+            <th>@Html.DisplayNameFor(x => x.City)</th>
+            <th>@Html.DisplayNameFor(x => x.Address)</th>
+            <th>@Html.DisplayNameFor(x => x.Phone)</th>
+            <th>@Html.DisplayNameFor(x => x.TFN)</th>
+        </tr>
+
+        <tr>
+
+            <td>@Html.DisplayFor(x => x.Name)</td>
+            <td>@Html.DisplayFor(x => x.CustomerID)</td>
+            <td>@Html.DisplayFor(x => x.PostCode)</td>
+            <td>@Html.DisplayFor(x => x.State)</td>
+            <td>@Html.DisplayFor(x => x.City)</td>
+            <td>@Html.DisplayFor(x => x.Address)</td>
+            <td>@Html.DisplayFor(x => x.Phone)</td>
+            <th>@Html.DisplayFor(x => x.TFN)</th>
+
+        </tr>
+
+    </table>
+</div>

@@ -1,0 +1,160 @@
+﻿
+@{
+    ViewData["Title"] = "Showgraph";
+}
+
+<h1>Showgraph</h1>
+
+<div class="box-body">
+    <div>Bar Chart</div>
+    <div class="chart-container" style="width:400px; height:600px;">
+        <canvas id="bar_chart" style="width:100%; height:500px"></canvas>
+    </div>
+
+    <div>Polar Chart</div>
+    <div class="chart-container" style="width:400px; height:600px;">
+        <canvas id="polar_chart" style="width:100%; height:500px"></canvas>
+    </div>
+
+    <div>Pie Chart</div>
+    <div class="chart-container" style="width:400px; height:600px;">
+        <canvas id="pie_chart" style="width:100%; height:500px"></canvas>
+    </div>
+
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+
+
+<script>
+var city = @Html.Raw(ViewBag.city);
+    var Rep = @Html.Raw(ViewBag.Rep);
+
+    var Transactiontype = @Html.Raw(ViewBag.Transactiontype);
+    var terms = @Html.Raw(ViewBag.terms);
+
+window.chartColors = {
+	red: 'rgb(255, 99, 132)',
+	orange: 'rgb(255, 159, 64)',
+	yellow: 'rgb(255, 205, 86)',
+	green: 'rgb(75, 192, 192)',
+	blue: 'rgb(54, 162, 235)',
+	purple: 'rgb(153, 102, 255)',
+	grey: 'rgb(201, 203, 207)'
+};
+ $(document).ready(function () {
+    var ctx = $("#bar_chart");
+    var myBarChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            //labels: ['Melbourne', 'Sydney'],
+            labels: city,
+            //labels: [@Html.Raw(ViewBag.city)],
+            datasets: [{
+                label: "Customer City",
+                //data: [@ViewBag.Rep],
+                //data: [2, 1],
+                data: Rep,
+                backgroundColor: ["rgba(242,166,54,5)", "rgba(145,65,72,.5)", "rgba(74,25,92,.5)"],
+                borderColor:["rgb(242,166,54)", "rgb(145,65,72)", "rgb(74,25,92)"]
+            }]
+        },
+       options: {
+          scales: {
+             xAxes: [{
+                stacked: true
+             }],
+             yAxes: [{
+                stacked: true
+             }]
+          }
+        }
+
+
+    });
+
+
+     piedata = {
+        datasets: [{
+           //data: [10, 20, 30]
+            data: terms
+         }],
+         backgroundColor: [
+						window.chartColors.red,
+						window.chartColors.orange,
+						window.chartColors.yellow,
+						window.chartColors.green,
+						window.chartColors.blue,
+					],
+        // These labels appear in the legend and in the tooltips when hovering different arcs
+        // labels: ['Red', 'Yellow', 'Blue']
+        labels: Transactiontype
+     };
+
+     //Pie Chart start here
+     var ctx1 = $("#pie_chart");
+     var myPieChart = new Chart(ctx1, {
+       type: 'pie',
+       data: piedata,
+       options: {
+				responsive: true
+			}
+     });
+
+
+
+
+     //Pollar Charts starts here
+     var polardata = {
+        datasets: [{
+           data: [10, 20, 30]
+        }],
+         backgroundColor: ["rgba(242,166,54,5)", "rgba(145,65,72,.5)", "(74,25,92,.5)"],
+        // These labels appear in the legend and in the tooltips when hovering different arcs
+        labels: [
+           'Red',
+           'Yellow',
+           'Blue'
+        ]
+     };
+
+     var ctx2 = $("#polar_chart");
+     new Chart(ctx2, {
+         data: polardata,
+         type: 'polarArea',
+         options: {
+             responsive: true,
+             legend: {
+                 position: 'right',
+             },
+             title: {
+                 display: true,
+                 text: 'Polar Area Chart'
+             },
+             scale: {
+                 ticks: {
+                     beginAtZero: true
+                 },
+                 reverse: false
+             },
+             animation: {
+                 animateRotate: false,
+                 animateScale: true
+             }
+         }
+
+     });
+
+
+});
+
+
+
+
+
+
+
+
+    </script> 
+}

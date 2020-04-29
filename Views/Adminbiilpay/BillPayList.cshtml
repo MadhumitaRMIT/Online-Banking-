@@ -1,0 +1,49 @@
+﻿
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Mvc.Core.Common
+@model IPagedList<BillPay>
+@{
+    ViewData["Title"] = "BillPayList";
+    var customer = (Customer)ViewBag.Customer;
+}
+
+<div>
+    <h1>Transactions for @customer.Name</h1>
+    <table class="table">
+        <tr>
+            <th>@Html.DisplayNameFor(x => x[0].AccountNumber)</th>
+            <th>@Html.DisplayNameFor(x => x[0].ScheduleDate)</th>
+            <th>@Html.DisplayNameFor(x => x[0].PayeeID)</th>
+            <th>@Html.DisplayNameFor(x => x[0].Amount)</th>
+            <th></th>
+
+        </tr>
+        @foreach (var Transaction in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(x => Transaction.AccountNumber)</td>
+                <td>@Html.DisplayFor(x => Transaction.ScheduleDate)</td>
+                <td>@Html.DisplayFor(x => Transaction.PayeeID)</td>
+                <td>@Html.DisplayFor(x => Transaction.Amount)</td>
+
+                <td>
+                    <a class="btn btn-primary"
+                       asp-action="ShowModifyBillPay" asp-route-id="@Transaction.BillPayID">Modify</a>
+                </td>
+            </tr>
+        }
+    </table>
+
+    @Html.PagedListPager(Model, page => Url.Action("Statement", new { page }),
+        new PagedListRenderOptions
+            {
+            LiElementClasses = new[] { "page-item" },
+            PageClasses = new[] { "page-link" }
+        })
+</div>
+
+<div>
+    <a asp-action="Index">Back to Customers</a>
+</div>
+
